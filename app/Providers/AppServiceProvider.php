@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Cashier\Cashier;
 
 final class AppServiceProvider extends ServiceProvider
 {
@@ -31,6 +32,7 @@ final class AppServiceProvider extends ServiceProvider
 
         Model::unguard();
         Model::shouldBeStrict($isProduction);
+
         DB::prohibitDestructiveCommands($isProduction);
         URL::forceScheme('https');
 
@@ -40,6 +42,7 @@ final class AppServiceProvider extends ServiceProvider
 
         $this->handleGates();
 
+        Cashier::calculateTaxes();
     }
 
     private function handleGates(): void
