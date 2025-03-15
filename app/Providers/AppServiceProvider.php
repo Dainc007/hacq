@@ -29,6 +29,7 @@ final class AppServiceProvider extends ServiceProvider
     {
         $isProduction = $this->app->isProduction();
 
+        Model::unguard();
         Model::shouldBeStrict($isProduction);
         DB::prohibitDestructiveCommands($isProduction);
         URL::forceScheme('https');
@@ -43,10 +44,6 @@ final class AppServiceProvider extends ServiceProvider
 
     private function handleGates(): void
     {
-        Gate::define('viewPulse', function (User $user): bool {
-            return $user->isAdmin();
-        });
-
         Gate::guessPolicyNamesUsing(function (string $modelClass) {
             return str_replace('Models', 'Policies', $modelClass).'Policy';
         });
