@@ -8,14 +8,20 @@ namespace App\Models;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Cashier\Billable;
 
 final class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory,
+        Notifiable,
+        Billable
+        ;
 
     /**
      * The attributes that are mass assignable.
@@ -43,6 +49,11 @@ final class User extends Authenticatable
         return Auth::user()->id === 1;
     }
 
+    public function CanAccessPanel(): bool
+    {
+        return true;
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -59,5 +70,15 @@ final class User extends Authenticatable
     public function companies(): HasMany
     {
         return $this->hasMany(Company::class);
+    }
+
+    public function userDetails(): HasOne
+    {
+        return $this->HasOne(UserDetails::class);
+    }
+
+    public function address(): MorphOne
+    {
+        return $this->morphOne(Address::class, 'addressable');
     }
 }

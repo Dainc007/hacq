@@ -21,6 +21,11 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+
+            $table->date('birthday')->nullable();
+            $table->string('personal_number')->nullable();
+            $table->string('phone')->nullable();
+            $table->boolean('has_active_subscription')->default(false);
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

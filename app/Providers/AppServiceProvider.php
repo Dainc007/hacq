@@ -47,10 +47,6 @@ final class AppServiceProvider extends ServiceProvider
 
     private function handleGates(): void
     {
-        Gate::guessPolicyNamesUsing(function (string $modelClass) {
-            return str_replace('Models', 'Policies', $modelClass).'Policy';
-        });
-
         Gate::define('viewPulse', fn (User $user): bool => $user->isAdmin());
     }
 }

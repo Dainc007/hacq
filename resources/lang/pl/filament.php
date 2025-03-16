@@ -34,10 +34,18 @@ return [
             'email' => 'Email',
             'phone' => 'Telefon',
             'password' => 'Hasło',
+            'date_of_birth' => 'Data urodzenia',
+            'personal_number' => 'PESEL',
         ],
         'actions' => [
             'save' => 'Zapisz',
             'cancel' => 'Anuluj',
         ],
     ],
+    'company' => [
+        'name' => 'Nazwa Firmy',
+        'owner' => 'Właściciel',
+        'description' => 'Opis Działalności',
+        'tax_number' => 'NIP',
+    ]
 ];
