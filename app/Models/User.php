@@ -6,6 +6,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -15,7 +17,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Cashier\Billable;
 
-final class User extends Authenticatable
+final class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory,
@@ -49,7 +51,7 @@ final class User extends Authenticatable
         return Auth::user()->id === 1;
     }
 
-    public function CanAccessPanel(): bool
+    public function canAccessPanel(Panel $panel): bool
     {
         return true;
     }
